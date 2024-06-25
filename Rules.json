@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Überprüfung auf aktuelle PK-Therapie",
+    "condition": "Patient.erhältAktuellPKTherapie === true",
+    "action": "goto 'Therapieart Überprüfen'"
+  },
+  {
+    "name": "Therapieart Überprüfen",
+    "condition": "Patient.erhältAktuellPKTherapie === true",
+    "action": "goto 'Letzte Kontrolle Überprüfen'"
+  },
+  {
+    "name": "Letzte Kontrolle Überprüfen",
+    "condition": "Patient.letzteKontrolle > 3",
+    "action": "goto 'Schrittmacher Überprüfen'"
+  },
+  {
+    "name": "Schrittmacher Überprüfen",
+    "condition": "Patient.schrittmacherErschöpft === true",
+    "action": "goto 'Batteriewechsel Überprüfen'"
+  },
+
+  {
+    "name": "Batteriewechsel Überprüfen",
+    "condition": "Patient.schrittmacherErschöpft === false",
+    "action": "Batterie.wechseln()"
+  },
+  {
+    "name": "Überprüfung auf frühere PK-Therapie",
+    "condition": "Patient.erhältAktuellPKTherapie === false && Patient.hatteFrüherePKTherapie === false",
+    "action": "Prozess.ende()"
+  }
+]
